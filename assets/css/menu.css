@@ -60,10 +60,10 @@
 .menu-section:nth-child(even) .menu-card { border-color: transparent; }
 .menu-card__media {
   aspect-ratio: 4 / 3; border-radius: var(--radius-sm); background: var(--color-parchment);
-  display: grid; place-items: center; margin-bottom: 14px;
+  position: relative; margin-bottom: 14px;
 }
 .menu-section:nth-child(even) .menu-card__media { background: var(--color-pearl); }
-.menu-card__media img { height: 78%; width: auto; filter: drop-shadow(3px 5px 18px rgba(0, 0, 0, 0.18)); }
+.menu-card__media img { position: absolute; inset: 12%; width: 76%; height: 76%; object-fit: contain; filter: drop-shadow(3px 5px 18px rgba(0, 0, 0, 0.18)); }
 .menu-card__badge {
   position: absolute; top: 28px; left: 28px;
   font-size: 12px; font-weight: 600; letter-spacing: -0.12px; color: #b4561a;
