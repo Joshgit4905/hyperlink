@@ -76,7 +76,8 @@
 .topics { border: 0; padding: 0; margin: 0; }
 .topics legend { padding: 0; margin-bottom: 8px; }
 .topic-chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.topic-chips input { position: absolute; opacity: 0; pointer-events: none; }
+.topic-chips label { position: relative; }
+.topic-chips input { position: absolute; inset: 0; opacity: 0; pointer-events: none; margin: 0; }
 .topic-chips span {
   display: inline-flex; align-items: center; height: 36px; padding: 0 16px; border-radius: var(--radius-pill);
   border: 1px solid var(--color-hairline); font-size: 14px; letter-spacing: -0.224px; cursor: pointer;
