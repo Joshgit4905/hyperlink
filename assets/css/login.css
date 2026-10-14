@@ -80,6 +80,7 @@
 .check input { width: 18px; height: 18px; accent-color: var(--color-primary); margin: 0; }
 
 /* Submit */
+.btn--block { width: 100%; }
 .auth__submit { position: relative; height: 50px; font-size: 17px; margin-top: 4px; }
 .spinner {
   display: none; width: 18px; height: 18px; border-radius: 50%;
