@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 480" role="img" aria-label="Glass pour-over brewer with a wooden collar">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity=".6"/><stop offset=".3" stop-color="#fff" stop-opacity=".1"/><stop offset="1" stop-color="#fff" stop-opacity=".4"/>
+    </linearGradient>
+    <linearGradient id="wood" x1="0" x2="1">
+      <stop offset="0" stop-color="#6b3d1c"/><stop offset=".5" stop-color="#b9784a"/><stop offset="1" stop-color="#6b3d1c"/>
+    </linearGradient>
+    <linearGradient id="brew2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8a4a1c"/><stop offset="1" stop-color="#3a1806"/>
+    </linearGradient>
+  </defs>
+  <path d="M90 40h220L220 200h-40z" fill="#f5f5f7" stroke="#fff" stroke-width="3"/>
+  <path d="M110 48h180l-60 80h-60z" fill="#e8e1d6"/>
+  <path d="M180 200h40v30c70 10 110 60 110 120 0 70-50 110-130 110S70 420 70 350c0-60 40-110 110-120z" fill="url(#g)" stroke="#fff" stroke-opacity=".8" stroke-width="3"/>
+  <path d="M80 360c0 56 46 92 120 92s120-36 120-92z" fill="url(#brew2)"/>
+  <path d="M170 214h60v36h-60z" fill="url(#wood)"/>
+  <path d="M110 300c-10 30-10 60 4 90" stroke="#fff" stroke-opacity=".7" stroke-width="7" stroke-linecap="round" fill="none"/>
+</svg>

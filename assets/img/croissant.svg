@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 340" role="img" aria-label="Golden butter croissant">
+  <defs>
+    <radialGradient id="crust" cx=".5" cy=".3" r=".8">
+      <stop offset="0" stop-color="#f6c77c"/><stop offset=".5" stop-color="#d98f3a"/><stop offset="1" stop-color="#8f4a14"/>
+    </radialGradient>
+    <radialGradient id="crust2" cx=".5" cy=".25" r=".9">
+      <stop offset="0" stop-color="#fbd69a"/><stop offset=".6" stop-color="#e09a45"/><stop offset="1" stop-color="#9c5419"/>
+    </radialGradient>
+  </defs>
+  <path d="M40 240c10-60 60-90 100-80l-20 110c-40 10-84 4-80-30z" fill="url(#crust)"/>
+  <path d="M480 240c-10-60-60-90-100-80l20 110c40 10 84 4 80-30z" fill="url(#crust)"/>
+  <path d="M110 160c20-40 60-60 90-56l-10 160c-40 6-80 0-96-24z" fill="url(#crust2)"/>
+  <path d="M410 160c-20-40-60-60-90-56l10 160c40 6 80 0 96-24z" fill="url(#crust2)"/>
+  <path d="M190 104c40-40 100-40 140 0l-14 176c-36 12-76 12-112 0z" fill="url(#crust2)"/>
+  <g fill="none" stroke="#7a3a0e" stroke-opacity=".35" stroke-width="4" stroke-linecap="round">
+    <path d="M206 140c34-14 74-14 108 0"/><path d="M204 190c36-12 76-12 112 0"/><path d="M206 240c34-10 74-10 108 0"/>
+    <path d="M130 200c20-6 40-6 58 0"/><path d="M332 200c20-6 40-6 58 0"/>
+  </g>
+  <path d="M230 120c20-10 40-10 60 0" stroke="#fff" stroke-opacity=".5" stroke-width="6" stroke-linecap="round" fill="none"/>
+</svg>

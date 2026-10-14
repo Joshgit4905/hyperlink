@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 480" role="img" aria-label="Layered latte in a tall glass">
+  <defs>
+    <linearGradient id="glass" x1="0" x2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".2" stop-color="#fff" stop-opacity=".08"/><stop offset=".8" stop-color="#fff" stop-opacity=".05"/><stop offset="1" stop-color="#fff" stop-opacity=".45"/>
+    </linearGradient>
+    <linearGradient id="coffee" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f4e6d3"/><stop offset=".28" stop-color="#e9cfae"/><stop offset=".5" stop-color="#b98455"/><stop offset=".72" stop-color="#7a4520"/><stop offset="1" stop-color="#4a250d"/>
+    </linearGradient>
+  </defs>
+  <path d="M105 60h190l-18 380a20 20 0 0 1-20 18H143a20 20 0 0 1-20-18z" fill="url(#coffee)"/>
+  <path d="M105 60h190l-4 70H109z" fill="#fbf6ee"/>
+  <path d="M100 52h200l-20 390a24 24 0 0 1-24 22H144a24 24 0 0 1-24-22z" fill="url(#glass)" stroke="#ffffff" stroke-opacity=".7" stroke-width="3"/>
+  <ellipse cx="200" cy="56" rx="100" ry="10" fill="#fff" opacity=".8"/>
+  <path d="M128 90c4 120 6 240 14 340" stroke="#fff" stroke-opacity=".6" stroke-width="8" stroke-linecap="round" fill="none"/>
+</svg>
