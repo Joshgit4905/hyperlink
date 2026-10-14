@@ -121,6 +121,23 @@
     </div>
   </div>
 
+  <!-- ===== Bag sheet ===== -->
+  <dialog class="bag-sheet" id="bag-sheet" aria-labelledby="bag-title">
+    <div class="bag-sheet__head">
+      <h2 id="bag-title" class="display-md">Your bag.</h2>
+      <button class="icon-btn" type="button" data-close-bag aria-label="Close bag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <ul class="bag-list" id="bag-list"></ul>
+    <p class="bag-empty muted" id="bag-empty">Your bag is empty. Add something warm.</p>
+    <div class="bag-sheet__foot">
+      <div class="bag-total"><span>Total</span><strong id="bag-total">$0.00</strong></div>
+      <p class="fine-print">Pickup at 214 Roast Street · Ready in about 5 minutes</p>
+      <button class="btn btn--primary btn--block" type="button" id="bag-checkout">Place pickup order</button>
+    </div>
+  </dialog>
+
   <!-- ===== Footer ===== -->
   <footer class="footer">
     <div class="footer__inner">

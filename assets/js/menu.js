@@ -134,3 +134,76 @@
     if (target) target.scrollIntoView();
   }
 })();
+
+/* ---------- Bag sheet & floating bar ---------- */
+(function () {
+  "use strict";
+  if (!window.Aroma) return;
+  const { store, toast, getBag, renderBagCount } = window.Aroma;
+  const KEY = "aroma-bag";
+  const fmt = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" });
+
+  const sheet = document.getElementById("bag-sheet");
+  const list = document.getElementById("bag-list");
+  const empty = document.getElementById("bag-empty");
+  const totalEl = document.getElementById("bag-total");
+  const bar = document.getElementById("bag-bar");
+  const barTotal = document.getElementById("bag-bar-total");
+  const checkout = document.getElementById("bag-checkout");
+
+  const total = (bag) => bag.reduce((sum, i) => sum + i.price * i.qty, 0);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+  function update() {
+    const bag = getBag();
+    const sum = total(bag);
+    bar.hidden = bag.length === 0;
+    document.body.style.paddingBottom = bag.length ? "64px" : "";
+    barTotal.textContent = fmt.format(sum);
+    totalEl.textContent = fmt.format(sum);
+    empty.hidden = bag.length > 0;
+    checkout.disabled = bag.length === 0;
+    list.innerHTML = bag.map((i) => `
+      <li class="bag-item" data-id="${esc(i.id)}">
+        <span class="bag-item__name">${esc(i.name)}</span>
+        <span class="bag-item__price">${fmt.format(i.price * i.qty)}</span>
+        <span class="stepper" role="group" aria-label="Quantity of ${esc(i.name)}">
+          <button type="button" data-step="-1" aria-label="Remove one">−</button>
+          <output>${i.qty}</output>
+          <button type="button" data-step="1" aria-label="Add one">+</button>
+        </span>
+        <button class="bag-item__remove" type="button" data-remove>Remove</button>
+      </li>`).join("");
+    renderBagCount();
+  }
+
+  function save(bag) { store.set(KEY, bag); update(); }
+
+  list.addEventListener("click", (e) => {
+    const row = e.target.closest(".bag-item");
+    if (!row) return;
+    let bag = getBag();
+    const item = bag.find((i) => i.id === row.dataset.id);
+    if (!item) return;
+    const step = e.target.closest("[data-step]");
+    if (step) item.qty += Number(step.dataset.step);
+    if (e.target.closest("[data-remove]") || item.qty <= 0) bag = bag.filter((i) => i !== item);
+    save(bag);
+  });
+
+  document.addEventListener("click", (e) => {
+    if (e.target.closest("[data-add-to-bag]")) update();
+    if (e.target.closest("[data-open-bag]")) { update(); sheet.showModal(); }
+    if (e.target.closest("[data-close-bag]")) sheet.close();
+  });
+  sheet.addEventListener("click", (e) => { if (e.target === sheet) sheet.close(); });
+
+  checkout.addEventListener("click", () => {
+    const count = getBag().reduce((n, i) => n + i.qty, 0);
+    save([]);
+    sheet.close();
+    toast(`Order placed: ${count} item${count === 1 ? "" : "s"}. See you in 5 minutes.`);
+  });
+
+  update();
+})();
