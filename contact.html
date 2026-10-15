@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Visit — Aroma Café</title>
+  <meta name="description" content="Find Aroma Café at 214 Roast Street, Portland. Opening hours, directions and a contact form for catering, events and wholesale.">
+  <meta name="theme-color" content="#000000">
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/contact.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ===== Global navigation ===== -->
+  <header class="global-nav">
+    <nav class="global-nav__inner" aria-label="Primary">
+      <a class="brand" href="index.html" aria-label="Aroma Café home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h13v4a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6z"/><path d="M17 11h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M8 3c-.8 1 .8 2 0 3M12 3c-.8 1 .8 2 0 3"/></svg>
+        Aroma
+      </a>
+      <ul class="global-nav__links" id="primary-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="index.html#origins">Origins</a></li>
+        <li><a href="contact.html" aria-current="page">Visit</a></li>
+        <li><a href="login.html">Sign in</a></li>
+      </ul>
+      <div class="global-nav__actions">
+        <a class="icon-link" href="menu.html#search" aria-label="Search the menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </a>
+        <a class="icon-link" href="menu.html" data-bag-label aria-label="Bag, empty">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+          <span class="bag-count" data-bag-count></span>
+        </a>
+        <button class="icon-link nav-toggle" type="button" aria-controls="primary-links" aria-expanded="false" aria-label="Open menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 9h16M4 15h16"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- ===== Hero ===== -->
+    <section class="tile tile--black on-dark visit-hero" aria-labelledby="visit-title">
+      <div class="tile__inner tile__copy">
+        <p class="status-pill" id="open-status" aria-live="polite"><span class="status-pill__dot"></span><span class="status-pill__text">Checking hours…</span></p>
+        <h1 id="visit-title" class="hero-display">Come say hello.</h1>
+        <p class="lead">214 Roast Street, Portland. Two blocks from the river.</p>
+        <div class="cta-row">
+          <a class="btn btn--primary" href="https://www.openstreetmap.org/search?query=Portland%2C%20OR%2097205" target="_blank" rel="noopener">Get directions</a>
+          <a class="btn btn--secondary" href="#message">Send a message</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Location + hours ===== -->
+    <section class="section section--parchment" aria-label="Location and opening hours">
+      <div class="visit-grid container">
+        <article class="visit-card visit-card--map" aria-labelledby="where-title">
+          <div class="map" role="img" aria-label="Map showing Aroma Café on Roast Street, two blocks west of the river">
+            <svg viewBox="0 0 600 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <rect width="600" height="360" fill="#ecebe6"/>
+              <path d="M470 0c-30 90 40 160 10 240s30 90 20 120h100V0z" fill="#bcd7ea"/>
+              <g fill="#dfe8d3"><rect x="40" y="30" width="120" height="80" rx="6"/><rect x="300" y="250" width="110" height="80" rx="6"/></g>
+              <g stroke="#ffffff" stroke-width="14" stroke-linecap="round">
+                <path d="M0 150h470"/><path d="M0 230h480"/><path d="M200 0v360"/><path d="M330 0v360"/><path d="M80 150v210"/>
+              </g>
+              <g stroke="#f7d58a" stroke-width="18" stroke-linecap="round"><path d="M0 70h460"/></g>
+              <g font-family="Inter, system-ui, sans-serif" font-size="11" fill="#7a7a7a" letter-spacing=".5">
+                <text x="16" y="144">ROAST ST</text><text x="16" y="224">BEAN AVE</text><text x="16" y="64">RIVER PKWY</text>
+                <text x="500" y="190" fill="#5b88a8">WILLAMETTE</text>
+              </g>
+            </svg>
+            <span class="map__pin" aria-hidden="true"><span></span></span>
+          </div>
+          <div class="visit-card__body">
+            <h2 id="where-title" class="tagline">Aroma Café</h2>
+            <address class="muted">214 Roast Street<br>Portland, OR 97205</address>
+            <ul class="amenities">
+              <li>Free Wi-Fi</li><li>Step-free entrance</li><li>Bike parking</li><li>Dogs welcome on the patio</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="visit-card" aria-labelledby="hours-title">
+          <div class="visit-card__body">
+            <h2 id="hours-title" class="tagline">Opening hours</h2>
+            <table class="hours" id="hours">
+              <caption class="visually-hidden">Weekly opening hours</caption>
+              <tbody>
+                <tr data-day="1"><th scope="row">Monday</th><td>7:00 – 19:00</td></tr>
+                <tr data-day="2"><th scope="row">Tuesday</th><td>7:00 – 19:00</td></tr>
+                <tr data-day="3"><th scope="row">Wednesday</th><td>7:00 – 19:00</td></tr>
+                <tr data-day="4"><th scope="row">Thursday</th><td>7:00 – 19:00</td></tr>
+                <tr data-day="5"><th scope="row">Friday</th><td>7:00 – 19:00</td></tr>
+                <tr data-day="6"><th scope="row">Saturday</th><td>8:00 – 17:00</td></tr>
+                <tr data-day="0"><th scope="row">Sunday</th><td>8:00 – 17:00</td></tr>
+              </tbody>
+            </table>
+            <p class="caption muted">Kitchen closes 30 minutes before closing time. Holiday hours are posted on our door.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== Contact form ===== -->
+    <section class="section" id="message" aria-labelledby="message-title">
+      <div class="contact-layout container">
+        <div class="contact-intro">
+          <h2 id="message-title" class="display-md">Send us a note.</h2>
+          <p class="lead-airy muted">Catering, events, wholesale beans or just a hello. We reply within one business day.</p>
+          <dl class="contact-facts">
+            <div><dt>Email</dt><dd><a href="mailto:hello@aromacafe.example">hello@aromacafe.example</a></dd></div>
+            <div><dt>Wholesale</dt><dd><a href="mailto:beans@aromacafe.example">beans@aromacafe.example</a></dd></div>
+          </dl>
+        </div>
+
+        <form class="contact-form" id="contact-form" novalidate>
+          <div class="form-row">
+            <div class="c-field">
+              <label for="c-name">Name</label>
+              <input id="c-name" name="name" type="text" autocomplete="name" required aria-describedby="c-name-error">
+              <p class="c-error" id="c-name-error"></p>
+            </div>
+            <div class="c-field">
+              <label for="c-email">Email</label>
+              <input id="c-email" name="email" type="email" autocomplete="email" required aria-describedby="c-email-error">
+              <p class="c-error" id="c-email-error"></p>
+            </div>
+          </div>
+
+          <fieldset class="c-field topics">
+            <legend>What's this about?</legend>
+            <div class="topic-chips">
+              <label><input type="radio" name="topic" value="general" checked><span>General</span></label>
+              <label><input type="radio" name="topic" value="catering"><span>Catering</span></label>
+              <label><input type="radio" name="topic" value="events"><span>Events</span></label>
+              <label><input type="radio" name="topic" value="wholesale"><span>Wholesale</span></label>
+            </div>
+          </fieldset>
+
+          <div class="c-field">
+            <label for="c-message">Message</label>
+            <textarea id="c-message" name="message" rows="6" maxlength="500" required aria-describedby="c-message-error c-count"></textarea>
+            <div class="c-meta"><p class="c-error" id="c-message-error"></p><span class="caption muted" id="c-count">0 / 500</span></div>
+          </div>
+
+          <button class="btn btn--primary btn--lg" type="submit">Send message</button>
+          <p class="c-status" id="c-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section class="section section--parchment" aria-labelledby="faq-title">
+      <div class="container faq">
+        <h2 id="faq-title" class="display-md">Questions, answered.</h2>
+        <details>
+          <summary>Do you take reservations?</summary>
+          <p>Seating is first come, first served. For groups of eight or more, send us a note and we'll save you the long table.</p>
+        </details>
+        <details>
+          <summary>Are your pastries vegan or gluten-free?</summary>
+          <p>We bake one vegan pastry and one gluten-free pastry every day. Our kitchen handles nuts, dairy and gluten.</p>
+        </details>
+        <details>
+          <summary>Can I buy beans for my office?</summary>
+          <p>Yes. Wholesale orders start at 5 kg per month and come with a free grinder calibration visit.</p>
+        </details>
+        <details>
+          <summary>Is there parking?</summary>
+          <p>There is two-hour street parking on Roast Street and covered bike racks next to the patio.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <p class="footer__note">Prices include tax. Oat, almond and whole milk available at no extra cost. Please let our baristas know about any allergies before ordering.</p>
+      <div class="footer__cols">
+        <div>
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="index.html#origins">Origins</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Account</h4>
+          <ul>
+            <li><a href="login.html">Sign in</a></li>
+            <li><a href="login.html#create">Create account</a></li>
+            <li><a href="menu.html">Your bag</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Visit</h4>
+          <ul>
+            <li><address>214 Roast Street<br>Portland, OR 97205</address></li>
+            <li>Mon–Fri 7:00–19:00</li>
+            <li>Sat–Sun 8:00–17:00</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="tel:+1555014372">+1 (555) 014-372</a></li>
+            <li><a href="mailto:hello@aromacafe.example">hello@aromacafe.example</a></li>
+            <li><a href="contact.html">Contact form</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__legal">
+        <span>Copyright © <span data-year>2026</span> Aroma Café. All rights reserved.</span>
+        <span>Made with care in Portland · Course project</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/contact.js" defer></script>
+</body>
+</html>

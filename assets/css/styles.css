@@ -234,6 +234,8 @@ h1, h2, h3, h4, p { margin: 0; }
 .tile__inner { max-width: var(--container); margin: 0 auto; }
 .tile__copy { position: relative; z-index: 2; }
 .tile__copy > * + * { margin-top: 6px; }
+.tile__copy > .cta-row { margin-top: var(--space-lg); }
+.tile__copy .lead { max-width: 30ch; margin-inline: auto; }
 .tile .lead { margin-top: 8px; }
 .on-dark .muted, .on-dark .caption { color: var(--color-body-muted); }
 .tile__media {
