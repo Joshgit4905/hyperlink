@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Menu — Aroma Café</title>
+  <meta name="description" content="Espresso, pour-overs, cold brew, pastries and take-home beans. Order ahead for pickup at Aroma Café.">
+  <meta name="theme-color" content="#000000">
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/menu.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ===== Global navigation ===== -->
+  <header class="global-nav">
+    <nav class="global-nav__inner" aria-label="Primary">
+      <a class="brand" href="index.html" aria-label="Aroma Café home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h13v4a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6z"/><path d="M17 11h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M8 3c-.8 1 .8 2 0 3M12 3c-.8 1 .8 2 0 3"/></svg>
+        Aroma
+      </a>
+      <ul class="global-nav__links" id="primary-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html" aria-current="page">Menu</a></li>
+        <li><a href="index.html#origins">Origins</a></li>
+        <li><a href="contact.html">Visit</a></li>
+        <li><a href="login.html">Sign in</a></li>
+      </ul>
+      <div class="global-nav__actions">
+        <a class="icon-link" href="menu.html#search" aria-label="Search the menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </a>
+        <a class="icon-link" href="menu.html" data-bag-label aria-label="Bag, empty">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+          <span class="bag-count" data-bag-count></span>
+        </a>
+        <button class="icon-link nav-toggle" type="button" aria-controls="primary-links" aria-expanded="false" aria-label="Open menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 9h16M4 15h16"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ===== Sub navigation ===== -->
+  <nav class="sub-nav" aria-label="Menu sections">
+    <div class="sub-nav__inner">
+      <span class="sub-nav__title">Menu</span>
+      <div class="sub-nav__links">
+        <a href="#espresso">Espresso</a>
+        <a href="#brewed">Brewed</a>
+        <a href="#cold">Cold</a>
+        <a href="#bakery">Bakery</a>
+        <a href="#beans">Beans</a>
+        <button class="btn btn--primary btn--sm" type="button" data-open-bag>View bag</button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <!-- ===== Intro ===== -->
+    <section class="menu-hero" aria-labelledby="menu-title">
+      <div class="container">
+        <h1 id="menu-title" class="hero-display">Menu.</h1>
+        <p class="lead menu-hero__lead">Everything is made to order. Pick up in five minutes.</p>
+      </div>
+    </section>
+
+    <!-- ===== Toolbar ===== -->
+    <section class="menu-toolbar" aria-label="Filter the menu">
+      <div class="container">
+        <div class="search-field" id="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <label class="visually-hidden" for="menu-search">Search the menu</label>
+          <input id="menu-search" type="search" placeholder="Search drinks, pastries, beans" autocomplete="off">
+        </div>
+        <div class="chips" role="group" aria-label="Categories">
+          <button class="chip" type="button" data-filter="all" aria-pressed="true">All</button>
+          <button class="chip" type="button" data-filter="espresso" aria-pressed="false">Espresso</button>
+          <button class="chip" type="button" data-filter="brewed" aria-pressed="false">Brewed</button>
+          <button class="chip" type="button" data-filter="cold" aria-pressed="false">Cold</button>
+          <button class="chip" type="button" data-filter="bakery" aria-pressed="false">Bakery</button>
+          <button class="chip" type="button" data-filter="beans" aria-pressed="false">Beans</button>
+        </div>
+        <p class="menu-count caption muted" id="menu-count" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- ===== Menu sections (rendered by menu.js) ===== -->
+    <div class="menu-sections" id="menu-sections">
+      <noscript><p class="container">Please enable JavaScript to browse the full menu.</p></noscript>
+    </div>
+
+    <div class="menu-empty container" id="menu-empty" hidden>
+      <p class="tagline">No matches.</p>
+      <p class="muted">Try “latte”, “oat” or “croissant”.</p>
+      <button class="btn btn--secondary" type="button" id="menu-reset">Clear search</button>
+    </div>
+
+    <!-- ===== Dark promo tile ===== -->
+    <section class="tile tile--dark on-dark" aria-labelledby="loyalty-title" style="padding-bottom:80px">
+      <div class="tile__inner tile__copy">
+        <h2 id="loyalty-title" class="display-lg">Every tenth cup is on us.</h2>
+        <p class="lead">Join Aroma Rewards. Free, forever.</p>
+        <div class="cta-row">
+          <a class="btn btn--primary" href="login.html#create">Join now</a>
+          <a class="text-link" href="login.html">Sign in</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Floating bag bar ===== -->
+  <div class="bag-bar" id="bag-bar" hidden>
+    <div class="bag-bar__inner">
+      <p><span class="bag-bar__label">Your bag</span> <strong id="bag-bar-total">$0.00</strong></p>
+      <button class="btn btn--primary" type="button" data-open-bag>Review bag</button>
+    </div>
+  </div>
+
+  <!-- ===== Bag sheet ===== -->
+  <dialog class="bag-sheet" id="bag-sheet" aria-labelledby="bag-title">
+    <div class="bag-sheet__head">
+      <h2 id="bag-title" class="display-md">Your bag.</h2>
+      <button class="icon-btn" type="button" data-close-bag aria-label="Close bag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <ul class="bag-list" id="bag-list"></ul>
+    <p class="bag-empty muted" id="bag-empty">Your bag is empty. Add something warm.</p>
+    <div class="bag-sheet__foot">
+      <div class="bag-total"><span>Total</span><strong id="bag-total">$0.00</strong></div>
+      <p class="fine-print">Pickup at 214 Roast Street · Ready in about 5 minutes</p>
+      <button class="btn btn--primary btn--block" type="button" id="bag-checkout">Place pickup order</button>
+    </div>
+  </dialog>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <p class="footer__note">Prices include tax. Oat, almond and whole milk available at no extra cost. Please let our baristas know about any allergies before ordering.</p>
+      <div class="footer__cols">
+        <div>
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="index.html#origins">Origins</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Account</h4>
+          <ul>
+            <li><a href="login.html">Sign in</a></li>
+            <li><a href="login.html#create">Create account</a></li>
+            <li><a href="menu.html">Your bag</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Visit</h4>
+          <ul>
+            <li><address>214 Roast Street<br>Portland, OR 97205</address></li>
+            <li>Mon–Fri 7:00–19:00</li>
+            <li>Sat–Sun 8:00–17:00</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="tel:+1555014372">+1 (555) 014-372</a></li>
+            <li><a href="mailto:hello@aromacafe.example">hello@aromacafe.example</a></li>
+            <li><a href="contact.html">Contact form</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__legal">
+        <span>Copyright © <span data-year>2026</span> Aroma Café. All rights reserved.</span>
+        <span>Made with care in Portland · Course project</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/menu.js" defer></script>
+</body>
+</html>
