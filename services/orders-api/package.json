@@ -1,0 +1,21 @@
+{
+  "name": "aroma-orders-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Aroma Café orders API: a protected resource server that validates JWTs issued by auth-service via JWKS.",
+  "type": "module",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env src/server.js",
+    "test": "node --test \"test/**/*.test.js\""
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.3.0",
+    "helmet": "^8.3.0",
+    "jose": "^6.2.13"
+  }
+}
