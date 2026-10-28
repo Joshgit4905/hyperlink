@@ -40,6 +40,24 @@ export function openDatabase(dbPath) {
   return db;
 }
 
+/** Raised when the database cannot be reached (closed, locked, disk error...). Mapped to HTTP 503. */
+export class DbUnavailableError extends Error {
+  constructor(cause) {
+    super("Database unavailable", { cause });
+    this.code = "DB_UNAVAILABLE";
+  }
+}
+
+/** Wraps a query: constraint violations pass through, anything else means the DB is unavailable. */
+const guard = (fn) => (...args) => {
+  try {
+    return fn(...args);
+  } catch (err) {
+    if (/constraint/i.test(err.message)) throw err;
+    throw new DbUnavailableError(err);
+  }
+};
+
 /** Small repository layer. Every query uses bound parameters (no string concatenation). */
 export function createRepo(db) {
   const q = {
@@ -56,24 +74,13 @@ export function createRepo(db) {
   };
 
   return {
-    createUser: (u) => q.insertUser.run(u.id, u.email, u.name, u.passwordHash, u.role || "customer"),
-    findUserByEmail: (email) => q.userByEmail.get(email),
-    findUserById: (id) => q.userById.get(id),
-    saveRefresh: (t) => q.insertRefresh.run(t.id, t.userId, t.tokenHash, t.familyId, t.expiresAt, t.createdAt),
-    findRefresh: (hash) => q.refreshByHash.get(hash),
-    revokeRefresh: (id, replacedBy = null) => q.revokeRefresh.run(Date.now(), replacedBy, id),
-    revokeFamily: (familyId) => q.revokeFamily.run(Date.now(), familyId),
-    ping: () => q.ping.get(),
-    transaction(fn) {
-      db.exec("BEGIN");
-      try {
-        const out = fn();
-        db.exec("COMMIT");
-        return out;
-      } catch (err) {
-        db.exec("ROLLBACK");
-        throw err;
-      }
-    }
+    createUser: guard((u) => q.insertUser.run(u.id, u.email, u.name, u.passwordHash, u.role || "customer")),
+    findUserByEmail: guard((email) => q.userByEmail.get(email)),
+    findUserById: guard((id) => q.userById.get(id)),
+    saveRefresh: guard((t) => q.insertRefresh.run(t.id, t.userId, t.tokenHash, t.familyId, t.expiresAt, t.createdAt)),
+    findRefresh: guard((hash) => q.refreshByHash.get(hash)),
+    revokeRefresh: guard((id, replacedBy = null) => q.revokeRefresh.run(Date.now(), replacedBy, id)),
+    revokeFamily: guard((familyId) => q.revokeFamily.run(Date.now(), familyId)),
+    ping: guard(() => q.ping.get())
   };
 }
