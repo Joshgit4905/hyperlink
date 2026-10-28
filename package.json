@@ -1,0 +1,13 @@
+{
+  "name": "aroma-cafe-web",
+  "version": "1.1.0",
+  "private": true,
+  "description": "Aroma Café website plus its auth-service and orders-api microservices.",
+  "scripts": {
+    "setup": "npm install --prefix services/auth-service && npm install --prefix services/orders-api",
+    "start:web": "npx http-server@14.1.1 . -p 5173 -c-1",
+    "start:auth": "npm start --prefix services/auth-service",
+    "start:orders": "npm start --prefix services/orders-api",
+    "test": "npm test --prefix services/auth-service && npm test --prefix services/orders-api"
+  }
+}
