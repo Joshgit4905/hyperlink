@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.1.1
+- Fix: the login sequence diagram in `docs/auth-report.md` now renders on GitHub.
+
 ## v1.1.0
 - Feature: `auth-service` microservice with register, login, logout, JWKS and login rate limiting. It issues JWT access tokens (RS256, 15 min) and rotating refresh tokens (HttpOnly cookie, 7 days) with reuse detection.
 - Feature: `orders-api` protected backend. It validates JWTs locally via JWKS and adds role-based access and server-side prices.
