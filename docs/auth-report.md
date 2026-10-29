@@ -71,7 +71,7 @@ sequenceDiagram
         AS->>AS: Sign JWT (RS256, 15 min) with private key
         AS->>AS: Create random refresh token (256 bit)
         AS->>DB: INSERT refresh_tokens (SHA-256 hash, family, expires)
-        AS-->>FE: 200 {accessToken, expiresIn, user}<br/>Set-Cookie: rt=…; HttpOnly; Secure; SameSite=Strict; Path=/auth
+        AS-->>FE: 200 {accessToken, expiresIn, user}<br/>Set-Cookie: rt=… (HttpOnly, Secure, SameSite=Strict, Path=/auth)
         FE->>FE: Keep accessToken in memory, schedule refresh at 14 min
         FE-->>U: "Welcome back, Demo." + "Hi, Demo" in the nav
     end
