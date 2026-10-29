@@ -31,6 +31,7 @@
   transition: transform .3s var(--ease);
 }
 .segmented[data-mode="create"] .segmented__thumb { transform: translateX(100%); }
+.segmented[hidden] { display: none; }
 
 /* Fields — floating labels */
 .auth__form { text-align: left; }
@@ -114,3 +115,14 @@
   .auth__title { font-size: 32px; }
   .auth__perks ul { grid-template-columns: 1fr; gap: 14px; }
 }
+
+/* Account: recent orders (data from orders-api, protected endpoint) */
+.account-orders { margin-top: 40px; text-align: left; background: var(--color-canvas); border-radius: var(--radius-lg); padding: 24px; }
+.account-orders__title { font-size: 17px; font-weight: 600; margin-bottom: 8px; }
+.account-orders__list { list-style: none; margin: 0; padding: 0; }
+.account-orders__list li { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; padding: 12px 0; border-bottom: 1px solid var(--color-divider-soft); }
+.account-orders__list li:last-child { border-bottom: 0; }
+.account-orders__list strong { font-weight: 600; }
+.account-orders__list span { font-size: 14px; color: var(--color-ink-muted-48); letter-spacing: -0.224px; }
+.account-orders__list .total { text-align: right; color: var(--color-ink); font-size: 17px; }
+#orders-note:empty { display: none; }
