@@ -1,0 +1,78 @@
+# 1) Login at auth-service
+$ curl -i -X POST http://localhost:4000/auth/login -d '{"email":"demo@aroma.test","password":"<demo>"}'
+HTTP/1.1 200 OK
+set-cookie: rt=6fVRLfu7rj…(opaque); Max-Age=604800; Path=/auth; Expires=Thu, 05 Nov 2026 02:02:22 GMT; HttpOnly; Secure; SameSite=Strict
+cache-control: no-store
+{"accessToken":"eyJhbGciOiJSUzI1…(JWT truncated)","tokenType":"Bearer","expiresIn":900,"user":{"id":"0fe4ecb2…","email":"demo@aroma.test","name":"Demo Customer","role":"customer"}}
+
+# 2) Decoded access token (header + payload; signature omitted)
+{"alg":"RS256","kid":"0z4po4sskJXMVRl1","typ":"JWT"}
+{
+  "email": "demo@aroma.test",
+  "name": "Demo Customer",
+  "role": "customer",
+  "iss": "http://localhost:4000",
+  "aud": "aroma-api",
+  "sub": "0fe4ecb2…",
+  "jti": "c261acd9…",
+  "iat": 1793239342,
+  "exp": 1793240242
+}
+lifetime = exp - iat = 900 s
+
+# 3) Protected request to orders-api
+$ curl -i http://localhost:5000/orders                      # no token
+HTTP/1.1 401 Unauthorized
+www-authenticate: Bearer error="missing_token"
+{"error":"missing_token","message":"Sign in to continue."}
+
+$ curl -i http://localhost:5000/orders -H "Authorization: Bearer eyJ…"
+HTTP/1.1 200 OK
+cache-control: no-store
+{"orders":[{"id":1,"items":[{"id":"esp-04","name":"Oat Latte","price":5.25,"qty":2},{"id":"bak-01","name":"Butter Croissant","price":3.75,"qty":1}],"total":14.25,"status":"received","createdAt":"2026-10-28 23:59:45"}]}
+
+$ curl -i http://localhost:5000/admin/orders -H "Authorization: Bearer eyJ…"   # role=customer
+HTTP/1.1 403 Forbidden
+{"error":"forbidden","message":"You don't have access to this resource."}
+
+$ curl -i http://localhost:5000/orders -H "Authorization: Bearer <tampered signature>"
+HTTP/1.1 401 Unauthorized
+www-authenticate: Bearer error="invalid_token"
+{"error":"invalid_token","message":"Invalid token."}
+
+# 4) Renewal: refresh token rotation
+$ curl -i -X POST http://localhost:4000/auth/refresh --cookie "rt=<cookie #1>"
+HTTP/1.1 200 OK
+set-cookie: rt=mRxAO9zU8t…(opaque); Max-Age=604800; Path=/auth; Expires=Thu, 05 Nov 2026 02:02:22 GMT; HttpOnly; Secure; SameSite=Strict
+cache-control: no-store
+{"accessToken":"eyJhbGciOiJSUzI1…(JWT truncated)","tokenType":"Bearer","expiresIn":900,"user":{"id":"0fe4ecb2…","email":"demo@aroma.test","name":"Demo Customer","role":"customer"}}
+
+$ curl -i -X POST http://localhost:4000/auth/refresh --cookie "rt=<cookie #1>"   # replay of an already-used token
+HTTP/1.1 401 Unauthorized
+set-cookie: rt=; Path=/auth; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure; SameSite=Strict
+{"error":"refresh_reused","message":"Session revoked. Please sign in again."}
+
+$ curl -i -X POST http://localhost:4000/auth/refresh --cookie "rt=<cookie #2>"   # whole family was revoked
+HTTP/1.1 401 Unauthorized
+set-cookie: rt=; Path=/auth; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure; SameSite=Strict
+{"error":"refresh_reused","message":"Session revoked. Please sign in again."}
+
+# 5) Logout
+$ curl -i -X POST http://localhost:4000/auth/logout --cookie "rt=<cookie #3>"
+HTTP/1.1 204 No Content
+set-cookie: rt=; Path=/auth; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure; SameSite=Strict
+
+$ curl -i -X POST http://localhost:4000/auth/refresh --cookie "rt=<cookie #3>"   # after logout
+HTTP/1.1 401 Unauthorized
+set-cookie: rt=; Path=/auth; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure; SameSite=Strict
+{"error":"refresh_reused","message":"Session revoked. Please sign in again."}
+
+# 6) Health checks
+$ curl -i http://localhost:4000/health
+HTTP/1.1 200 OK
+{"status":"ok","db":"ok"}
+
+$ curl -i http://localhost:5000/health
+HTTP/1.1 200 OK
+{"status":"ok","db":"ok"}
+
