@@ -22,6 +22,15 @@ npm-debug.log*
 # Environment
 .env
 .env.*
+!.env.example
 
 # Local tool configuration
 .claude/
+
+# Auth / API services runtime data
+*.db
+*.db-shm
+*.db-wal
+services/**/data/
+services/**/keys/
+*.pem

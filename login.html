@@ -89,7 +89,7 @@
         </div>
 
         <div class="auth__row" data-only="signin">
-          <label class="check"><input type="checkbox" name="remember"> <span>Keep me signed in</span></label>
+          <span class="caption muted">You stay signed in on this device for 7 days.</span>
           <a href="contact.html" class="caption">Forgot password?</a>
         </div>
 
@@ -113,6 +113,11 @@
           <a class="btn btn--primary" href="menu.html">Order now</a>
           <button class="btn btn--secondary" type="button" id="sign-out">Sign out</button>
         </div>
+        <section class="account-orders" aria-labelledby="orders-title">
+          <h3 id="orders-title" class="account-orders__title">Recent orders</h3>
+          <ul class="account-orders__list" id="orders-list" aria-live="polite"></ul>
+          <p class="caption muted" id="orders-note">Loading your orders…</p>
+        </section>
       </div>
     </section>
 
@@ -171,6 +176,7 @@
   </footer>
 
   <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/auth-client.js" defer></script>
   <script src="assets/js/login.js" defer></script>
 </body>
 </html>

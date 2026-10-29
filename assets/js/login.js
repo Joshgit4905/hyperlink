@@ -1,9 +1,10 @@
-/* Aroma Café — Sign in / Create account: mode switch, validation, demo session */
+/* Aroma Café — Sign in / Create account: mode switch, client-side validation, real auth via auth-service */
 (function () {
   "use strict";
 
-  const USER_KEY = "aroma-user";
-  const store = window.Aroma ? window.Aroma.store : { get: (_, f) => f, set() {} };
+  const auth = window.AromaAuth;
+  // Legacy fake session from v1.0 (localStorage). Remove it: tokens are never stored in web storage now.
+  try { localStorage.removeItem("aroma-user"); } catch (_) { /* ignore */ }
 
   const form = document.getElementById("auth-form");
   const panel = document.querySelector(".auth__panel");
@@ -87,7 +88,7 @@
     password: (v) => {
       if (!v) return "Enter your password.";
       if (v.length < 8) return "Your password must be at least 8 characters.";
-      if (mode === "create" && scorePassword(v) < 2) return "Add a number, a symbol or an uppercase letter.";
+      if (mode === "create" && !(/[A-Za-z]/.test(v) && /\d/.test(v))) return "Use letters and at least one number.";
       return "";
     },
     confirm: (v) => (mode !== "create" ? "" : !v ? "Confirm your password." : v !== fields.password.value ? "Passwords don't match." : ""),
@@ -144,7 +145,7 @@
   });
 
   /* ---------- Submit ---------- */
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
     status.textContent = "";
     const names = activeFields();
@@ -159,15 +160,25 @@
     submit.classList.add("is-loading");
     submit.disabled = true;
 
-    // Demo only: no real backend. Simulate a short network request.
-    setTimeout(() => {
+    const email = fields.email.value.trim();
+    const password = fields.password.value;
+    const isNew = mode === "create";
+    try {
+      const user = isNew
+        ? await auth.register(fields.name.value.trim(), email, password)
+        : await auth.login(email, password);
+      form.reset();
+      showSuccess(user.name, isNew);
+    } catch (err) {
+      // Server messages are already user-safe and generic (e.g. "Invalid email or password.").
+      status.textContent = err.message;
+      if (err.code === "email_taken") showError("email", err.message);
+      fields.password.value = "";
+      fields.password.focus();
+    } finally {
       submit.classList.remove("is-loading");
       submit.disabled = false;
-      const email = fields.email.value.trim();
-      const name = mode === "create" ? fields.name.value.trim() : email.split("@")[0];
-      store.set(USER_KEY, { name, email });
-      showSuccess(name, mode === "create");
-    }, 900);
+    }
   });
 
   function showSuccess(name, isNew) {
@@ -182,10 +193,37 @@
     sub.hidden = true;
     success.hidden = false;
     success.focus();
+    loadOrders();
   }
 
-  document.getElementById("sign-out").addEventListener("click", () => {
-    try { localStorage.removeItem(USER_KEY); } catch (_) { /* ignore */ }
+  /* Protected request: GET /orders on orders-api with the Bearer access token. */
+  const fmt = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" });
+  async function loadOrders() {
+    const list = document.getElementById("orders-list");
+    const note = document.getElementById("orders-note");
+    list.innerHTML = "";
+    note.textContent = "Loading your orders…";
+    try {
+      const { orders } = await auth.apiFetch("/orders");
+      note.textContent = orders.length ? "" : "No orders yet. Your first one is a tap away.";
+      orders.slice(0, 5).forEach((o) => {
+        const li = document.createElement("li");
+        const items = o.items.map((i) => `${i.qty} × ${i.name}`).join(", ");
+        li.innerHTML = `<strong></strong><span class="total"></span><span></span><span></span>`;
+        const [n, t, d, when] = li.children;
+        n.textContent = `Order #${o.id}`;
+        t.textContent = fmt.format(o.total);
+        d.textContent = items;
+        when.textContent = new Date(o.createdAt.replace(" ", "T") + "Z").toLocaleString();
+        list.appendChild(li);
+      });
+    } catch (err) {
+      note.textContent = err.status === 401 ? "Your session expired. Please sign in again." : "Orders are unavailable right now.";
+    }
+  }
+
+  document.getElementById("sign-out").addEventListener("click", async () => {
+    await auth.logout();
     form.reset();
     success.hidden = true;
     form.hidden = false;
@@ -198,7 +236,7 @@
 
   /* ---------- Init ---------- */
   setMode(location.hash === "#create" ? "create" : "signin", false);
-  const saved = store.get(USER_KEY, null);
-  if (saved && saved.name) showSuccess(saved.name, false);
+  // Silent session restore: auth-client already called /auth/refresh with the HttpOnly cookie.
+  auth.ready.then(() => { if (auth.user) showSuccess(auth.user.name, false); });
   panel.classList.add("is-ready");
 })();

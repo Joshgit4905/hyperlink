@@ -198,11 +198,30 @@
   });
   sheet.addEventListener("click", (e) => { if (e.target === sheet) sheet.close(); });
 
-  checkout.addEventListener("click", () => {
-    const count = getBag().reduce((n, i) => n + i.qty, 0);
-    save([]);
-    sheet.close();
-    toast(`Order placed: ${count} item${count === 1 ? "" : "s"}. See you in 5 minutes.`);
+  // Placing an order is a protected request: POST /orders on orders-api with the Bearer token.
+  checkout.addEventListener("click", async () => {
+    const auth = window.AromaAuth;
+    if (!auth) return;
+    await auth.ready;
+    if (!auth.isSignedIn) {
+      toast("Sign in to place your pickup order.");
+      setTimeout(() => { location.href = "login.html"; }, 1200);
+      return;
+    }
+    checkout.disabled = true;
+    checkout.textContent = "Placing order…";
+    try {
+      const items = getBag().map((i) => ({ id: i.id, qty: i.qty })); // prices are decided by the server
+      const { order } = await auth.apiFetch("/orders", { method: "POST", body: JSON.stringify({ items }) });
+      save([]);
+      sheet.close();
+      toast(`Order #${order.id} placed · ${fmt.format(order.total)}. See you in 5 minutes.`);
+    } catch (err) {
+      toast(err.status === 401 ? "Your session expired. Please sign in again." : err.message);
+    } finally {
+      checkout.textContent = "Place pickup order";
+      checkout.disabled = getBag().length === 0;
+    }
   });
 
   update();

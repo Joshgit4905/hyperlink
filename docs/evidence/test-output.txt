@@ -1,0 +1,35 @@
+> aroma-cafe-web@1.1.0 test
+> npm test --prefix services/auth-service && npm test --prefix services/orders-api
+> aroma-auth-service@1.0.0 test
+> node --test "test/**/*.test.js"
+✔ register creates an account and returns a session (232.1162ms)
+✔ register rejects a duplicate email with 409 (13.1549ms)
+✔ register rejects a weak password with 400 (5.5138ms)
+✔ login with the right password returns a signed RS256 JWT with the expected claims (11.9922ms)
+✔ login with a wrong password returns a generic 401 (8.7488ms)
+✔ login for an unknown email returns the same generic 401 (7.2648ms)
+✔ GET /auth/me works with the bearer token and fails without it (14.1022ms)
+✔ JWKS exposes only the public key (3.8438ms)
+✔ refresh rotates the refresh token, and reusing the old one revokes the session (13.3339ms)
+✔ logout revokes the refresh token (14.4734ms)
+✔ login is rate limited after repeated failures (19.2259ms)
+✔ when the database is down, health and login answer 503 without leaking details (7.4285ms)
+ℹ tests 12
+ℹ pass 12
+ℹ fail 0
+> aroma-orders-api@1.0.0 test
+> node --test "test/**/*.test.js"
+✔ public menu is available without signing in (163.7119ms)
+✔ protected endpoint without a token answers 401 with WWW-Authenticate (11.5206ms)
+✔ login at auth-service, then place an order at orders-api with the Bearer token (95.4993ms)
+✔ a tampered token is rejected (3.0032ms)
+✔ a token signed by someone else's key is rejected (34.4584ms)
+✔ an expired token is rejected with token_expired (5.8541ms)
+✔ a token for another audience is rejected (4.7878ms)
+✔ role-based access: customers get 403 on /admin/orders, staff get 200 (19.7114ms)
+✔ FAILURE: auth-service goes down → existing tokens keep working, new logins fail (16.0251ms)
+✔ FAILURE: auth-service down and no cached keys → orders-api fails closed with 503 (10.8331ms)
+✔ FAILURE: orders database goes down → 503, no internal details (7.2275ms)
+ℹ tests 11
+ℹ pass 11
+ℹ fail 0
